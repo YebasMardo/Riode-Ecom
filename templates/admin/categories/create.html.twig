@@ -1,0 +1,26 @@
+{% extends "partials/admin/base_admin.html.twig" %}
+
+{% block body %}
+    {% include "partials/admin/sidebar.html.twig" %}
+
+    <div id="layoutSidenav_content">
+		<main>
+			<div class="container-fluid px-4">
+				<h1 class="mt-4">Créer une catégorie</h1>
+				<ol class="breadcrumb mb-4">
+					<li class="breadcrumb-item active">Catégorie</li>
+				</ol>
+
+                <div class="card mb-4">
+					<div class="card-header">
+						<i class="fas fa-table me-1"></i>
+						Catégorie
+					</div>
+					<div class="card-body">
+						{{ form(form) }}
+					</div>
+				</div>
+			</div>
+		</main>
+							
+{% endblock %}

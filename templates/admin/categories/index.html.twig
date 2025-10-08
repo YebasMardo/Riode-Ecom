@@ -1,0 +1,64 @@
+{% extends "partials/admin/base_admin.html.twig" %}
+
+{% block body %}
+    {% include "partials/admin/sidebar.html.twig" %}
+
+    <div id="layoutSidenav_content">
+		<main>
+			<div class="container-fluid px-4">
+				<h1 class="mt-4">Catégories</h1>
+				<ol class="breadcrumb mb-4">
+					<li class="breadcrumb-item active">Listing</li>
+				</ol>
+				<div class="d-flex align-items-center justify-content-start my-3">
+                    <a href="{{ path('admin.category.create') }}" class="btn btn-primary d-flex align-items-center">
+                        <i class="fas fa-plus me-2"></i> Ajouter une nouvelle catégorie
+                    </a>
+                </div>
+
+                <div class="card mb-4">
+					<div class="card-header">
+						<i class="fas fa-table me-1"></i>
+						Catégories
+					</div>
+					<div class="card-body">
+						<table id="datatablesSimple">
+							<thead>
+								<tr>
+									<th>Nom</th>
+									<th>Produits</th>
+									<th>Action</th>
+								</tr>
+							</thead>
+							<tfoot>
+								<tr>
+									<th>Nom</th>
+									<th>Produits</th>
+									<th>Action</th>
+								</tr>
+							</tfoot>
+							<tbody>
+                                {% for category in categories %}
+                                    <tr>
+                                        <td>{{ category.name }}</td>
+                                        <td>0</td>   
+                                        <td>
+                                            <div class="d-flex gap-1">
+                                                <a class="btn btn-primary" href="{{path('admin.category.edit', {id: category.id})}}">Editer</a>
+                                                <form action="{{path('admin.category.delete', {id: category.id})}}" method="post">
+                                                    <input type="hidden" name="_method" value="DELETE">
+                                                    <button type="submit" class="btn btn-danger">Supprimer</button>
+                                                </form>
+                                            </div>
+                                        </td>
+                                    </tr>    
+                                {% endfor %}
+                            </tr>
+							</tbody>
+						</table>
+					</div>
+				</div>
+			</div>
+		</main>
+							
+{% endblock %}

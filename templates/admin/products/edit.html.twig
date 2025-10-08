@@ -1,0 +1,78 @@
+{% extends "partials/admin/base_admin.html.twig" %}
+
+{% block body %}
+    {% include "partials/admin/sidebar.html.twig" %}
+
+    <div id="layoutSidenav_content">
+		<main>
+			<div class="container-fluid px-4">
+				<h1 class="mt-4">Editer un produit</h1>
+				<ol class="breadcrumb mb-4">
+					<li class="breadcrumb-item active">Produit</li>
+				</ol>
+
+                <div class="card mb-4">
+					<div class="card-header">
+						<i class="fas fa-table me-1"></i>
+						{{ product.title }}
+					</div>
+					<div class="card-body">
+						{{ form_start(form, {'attr': {'enctype': 'multipart/form-data'}}) }}
+                            <div class="mb-3">
+                                {{ form_row(form.title) }}
+                                {{ form_row(form.description) }}
+                                {{ form_row(form.price) }}
+                                {{ form_row(form.promoPrice) }}
+                                {{ form_row(form.category) }}
+                            </div>
+
+                            <h4>Images</h4>
+                            <div id="product_images_container" data-prototype="{{ form_widget(form.productImages.vars.prototype)|e('html_attr') }}">
+                                {% for child in form.productImages %}
+                                    <div class="product-image-item">
+                                        {{ form_row(child) }}
+                                        <button type="button" class="remove-product-image">Supprimer</button>
+                                    </div>
+                                {% endfor %}
+                                <button type="button" id="add_product_image" class="btn btn-primary mt-3">Ajouter une image</button>
+                            </div>
+                            <button class="btn btn-success mt-3">Créer le produit</button>
+                        {{ form_end(form) }}
+					</div>
+				</div>
+			</div>
+		</main>
+        <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const container = document.getElementById('product_images_container');
+            const addBtn = document.getElementById('add_product_image');
+
+            if (!container || !addBtn) return; // sécurité si le DOM change
+
+            let index = container.querySelectorAll('.product-image-item').length;
+            const prototype = container.dataset.prototype;
+
+            addBtn.addEventListener('click', function () {
+                if (!prototype) {
+                    console.error('Prototype non défini');
+                    return;
+                }
+
+                const newForm = prototype.replace(/__name__/g, index);
+                const wrapper = document.createElement('div');
+                wrapper.classList.add('product-image-item', 'border', 'p-2', 'mt-2');
+                wrapper.innerHTML = newForm + '<button type="button" class="remove-product-image btn btn-danger btn-sm mt-2">Supprimer</button>';
+                container.appendChild(wrapper);
+                index++;
+            });
+
+            container.addEventListener('click', function (e) {
+                if (e.target.classList.contains('remove-product-image')) {
+                    e.target.closest('.product-image-item').remove();
+                }
+            });
+        });
+        </script>
+
+							
+{% endblock %}
