@@ -9,13 +9,15 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Routing\Requirement\Requirement;
+use Symfony\Component\Security\Http\Attribute\IsGranted;
 
 #[Route('admini/category', 'admin.category.')]
+#[IsGranted('ROLE_ADMIN')]
 class CategoryController extends AbstractController {
 
     #[Route('/', 'index')]
     public function index(CategoryRepository $categoryRepository) {
-        $categories = $categoryRepository->findAll();
+        $categories = $categoryRepository->findAllWithCount();
         return $this->render('admin/categories/index.html.twig', [
             'categories' => $categories
         ]);

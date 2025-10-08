@@ -9,11 +9,13 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Routing\Requirement\Requirement;
+use Symfony\Component\Security\Http\Attribute\IsGranted;
 
 #[Route('admini/products', 'admin.product.')]
 class ProductController extends AbstractController {
 
     #[Route('/', 'index')]
+    #[IsGranted('ROLE_ADMIN')]
     public function index(ProductRepository $productRepository) {
         $products = $productRepository->findAll();
         return $this->render('admin/products/index.html.twig', [

@@ -1,0 +1,24 @@
+{% if app.flashes | length > 0 %}
+<div class="flash-messages">
+    {% for type, messages in app.flashes %}
+        {% for message in messages %}
+        <div class="flash-message flash-{{ type }}">
+            <span>{{ message }}</span>
+            <button class="close-btn" onclick="this.parentElement.remove()">×</button>
+        </div>
+        {% endfor %}
+    {% endfor %}
+</div>
+
+<script>
+    // Auto-fermeture après 5 secondes
+    document.querySelectorAll('.flash-message').forEach(function(flash) {
+        setTimeout(function() {
+            flash.style.animation = 'slideIn 0.3s ease-out reverse';
+            setTimeout(function() {
+                flash.remove();
+            }, 300);
+        }, 5000);
+    });
+</script>
+{% endif %}

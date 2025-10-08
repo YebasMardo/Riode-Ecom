@@ -1,0 +1,43 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Register{% endblock %}
+
+{% block body %}
+{% include "partials/header.html.twig" %}
+<form method="post" style="max-width: 530px; margin: auto;" class="mt-4 mb-4 my-5 p-4 border rounded shadow">
+    {% for flash_error in app.flashes('verify_email_error') %}
+        <div class="alert alert-danger" role="alert">{{ flash_error }}</div>
+    {% endfor %}
+
+    <h1 class="h3 mb-3 font-weight-normal">S'inscrire</h1>
+
+    {{ form_errors(registrationForm) }}
+
+    {{ form_start(registrationForm, {'attr': {'style': 'display: contents;'}}) }}
+        <label for="registration_form_username">Nom d'utilisateur</label>
+        {{ form_widget(registrationForm.username, {
+            'attr': {'class': 'form-control mb-2'}
+        }) }}
+        
+        <label for="registration_form_email">Email</label>
+        {{ form_widget(registrationForm.email, {
+            'attr': {'class': 'form-control mb-2', 'id': 'registration_form_email'}
+        }) }}
+        
+        <label for="registration_form_plainPassword">Mot de passe</label>
+        {{ form_widget(registrationForm.plainPassword, {
+            'attr': {'class': 'form-control mb-2'}
+        }) }}
+        
+        <div class="form-check mb-3">
+            {{ form_widget(registrationForm.agreeTerms, {
+                'attr': {'style': 'width: 20px;'}
+            }) }}
+            {{ form_label(registrationForm.agreeTerms, 'J\'accepte les conditions') }}
+        </div>
+
+        <button type="submit" class="btn btn-lg btn-primary">S'inscrire</button>
+    {{ form_end(registrationForm) }}
+</form>
+{% include "partials/footer.html.twig" %}
+{% endblock %}

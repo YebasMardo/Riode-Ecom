@@ -41,7 +41,7 @@
                                 {% for category in categories %}
                                     <tr>
                                         <td>{{ category.name }}</td>
-                                        <td>0</td>   
+                                        <td>{{ category.products|length }}</td>   
                                         <td>
                                             <div class="d-flex gap-1">
                                                 <a class="btn btn-primary" href="{{path('admin.category.edit', {id: category.id})}}">Editer</a>
