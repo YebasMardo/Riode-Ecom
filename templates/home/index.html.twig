@@ -43,7 +43,7 @@
 									                                        }">sale Up to
 									<span class="text-primary ">30% Off</span>
 								</h3>
-								<a class="btn btn-white btn-icon-right" href="demo9-shop.html">Shop now
+								<a class="btn btn-white btn-icon-right" href="{{ path('home.shop') }}">Shop now
 									<i class="d-icon-arrow-right"></i>
 								</a>
 							</div>
@@ -63,7 +63,7 @@
 							<div class="banner-deco slide-animate" data-animation-options="{'name': 'fadeInUpShorter', 'duration': '1.4s', 'delay': '.6s'}">
 								up to<span class="text-primary ls-normal">$100 off</span>
 							</div>
-							<a href="demo9-shop.html" class="btn btn-white btn-icon-right slide-animate" data-animation-options="{'name': 'fadeInUp', 'duration': '1.3s', 'delay': '.8s'}">Shop
+							<a href="{{ path('home.shop')}}" class="btn btn-white btn-icon-right slide-animate" data-animation-options="{'name': 'fadeInUp', 'duration': '1.3s', 'delay': '.8s'}">Shop
 								                                        now
 								<i class="d-icon-arrow-right"></i>
 							</a>
@@ -82,7 +82,7 @@
 								Lorem ipsum dolor sit amet, consectetur adipiscing elit,
 								<br/>sed do eiusmod
 								                                        tempor incididunt ut labore et dolore magna aliqua.</p>
-							<a href="demo9-shop.html" class="btn btn-outline btn-white slide-animate" data-animation-options="{'name': 'fadeInUpShorter', 'duration': '1.2s', 'delay': '.7s'}">Go
+							<a href="{{ path('home.shop') }}" class="btn btn-outline btn-white slide-animate" data-animation-options="{'name': 'fadeInUpShorter', 'duration': '1.2s', 'delay': '.7s'}">Go
 								                                        to shop</a>
 						</div>
 					</div>
@@ -170,7 +170,7 @@
 							{% for product in products %}
 								<div class="product text-center product-with-qty">
 									<figure class="product-media card1">
-										<a href="demo9-product.html">
+										<a href="{{ path('home.show', {'id': product.id}) }}">
 											{% for image in product.productImages|slice(0, 2) %}
 												<img src="{{ vich_uploader_asset(image, 'imageFile') }}" alt="product" width="300" height="338">
 											{% endfor %}

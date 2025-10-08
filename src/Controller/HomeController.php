@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Entity\Product;
 use App\Repository\CategoryRepository;
 use App\Repository\ProductImageRepository;
 use App\Repository\ProductRepository;
@@ -23,17 +24,23 @@ final class HomeController extends AbstractController
     }
 
     #[Route('/shop', 'home.shop')]
-    public function shop(ProductRepository $productRepository) 
+    public function shop(ProductRepository $productRepository, CategoryRepository $categoryRepository): Response
     {
         $products = $productRepository->findAll();
+        $categories = $categoryRepository->findAll();
         return $this->render('home/shop.html.twig', [
-            'products' => $products
+            'products' => $products,
+            'categories' => $categories
         ]);
     }
 
-    #[Route('/show', 'home.show')]
-    public function show() 
+    #[Route('/show/{id}', 'home.show')]
+    public function show(Product $product, CategoryRepository $categoryRepository): Response
     {
-        return $this->render('home/show.html.twig', []);
+        $categories = $categoryRepository->findAll();
+        return $this->render('home/show.html.twig', [
+            'product' => $product,
+            'categories' => $categories
+        ]);
     }
 }

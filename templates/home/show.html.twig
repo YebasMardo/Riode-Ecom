@@ -9,33 +9,19 @@
 				<div class="col-md-6">
 					<div class="product-gallery pg-vertical">
 						<div class="product-single-carousel owl-carousel owl-theme owl-nav-inner row cols-1">
-							<figure class="product-image">
-								<img src="{{asset('/assets/images/demos/demo9/product/1.jpg')}}" data-zoom-image="images/demos/demo9/product/1.jpg" alt="Blue Pinafore Denim Dress" width="600" height="675">
-							</figure>
-							<figure class="product-image">
-								<img src="{{asset('/assets/images/demos/demo9/product/2.jpg')}}" data-zoom-image="images/demos/demo9/product/2.jpg" alt="Blue Pinafore Denim Dress" width="600" height="675">
-							</figure>
-							<figure class="product-image">
-								<img src="{{asset('/assets/images/demos/demo9/product/3.jpg')}}" data-zoom-image="images/demos/demo9/product/3.jpg" alt="Blue Pinafore Denim Dress" width="600" height="675">
-							</figure>
-							<figure class="product-image">
-								<img src="{{asset('/assets/images/demos/demo9/product/4.jpg')}}" data-zoom-image="images/demos/demo9/product/4.jpg" alt="Blue Pinafore Denim Dress" width="600" height="675">
-							</figure>
+							{% for image in product.productImages %}							
+								<figure class="product-image">
+									<img src="{{ vich_uploader_asset(image, 'imageFile') }}" data-zoom-image="images/demos/demo9/product/1.jpg" alt="Blue Pinafore Denim Dress" width="600" height="675">
+								</figure>
+							{% endfor %}
 						</div>
 						<div class="product-thumbs-wrap">
 							<div class="product-thumbs">
-								<div class="product-thumb active">
-									<img src="{{asset('/assets/images/demos/demo9/product/1-1.jpg')}}" alt="product thumbnail" width="150" height="169">
-								</div>
-								<div class="product-thumb">
-									<img src="{{asset('/assets/images/demos/demo9/product/2-1.jpg')}}" alt="product thumbnail" width="150" height="169">
-								</div>
-								<div class="product-thumb">
-									<img src="{{asset('/assets/images/demos/demo9/product/3-1.jpg')}}" alt="product thumbnail" width="150" height="169">
-								</div>
-								<div class="product-thumb">
-									<img src="{{asset('/assets/images/demos/demo9/product/4-1.jpg')}}" alt="product thumbnail" width="150" height="169">
-								</div>
+								{% for image in product.productImages %}							
+									<div class="product-thumb active">
+										<img src="{{ vich_uploader_asset(image, 'imageFile') }}" alt="{{ product.title }}" width="150" height="169">
+									</div>
+								{% endfor %}
 							</div>
 							<button class="thumb-up disabled">
 								<i class="fas fa-chevron-left"></i>
@@ -56,7 +42,7 @@
 									</a>
 								</li>
 								<li>
-									<a href="#" class="active">Products</a>
+									<a href="{{ path('home.shop')}}" class="active">Products</a>
 								</li>
 								<li>Detail</li>
 							</ul>
@@ -85,14 +71,14 @@
 							</ul>
 						</div>
 
-						<h1 class="product-name">Man’s Grey Wrist Watch</h1>
+						<h1 class="product-name">{{ product.title }}</h1>
 						<div class="product-meta">
 							SKU:
 							<span class="product-sku">12345670</span>
 							BRAND:
 							<span class="product-brand">The Northland</span>
 						</div>
-						<div class="product-price">$139.00</div>
+						<div class="product-price">${{ product.promoPrice }}</div>
 						<div class="ratings-container">
 							<div class="ratings-full">
 								<span class="ratings" style="width:80%"></span>
@@ -100,9 +86,7 @@
 							</div>
 							<a href="#product-tab-reviews" class="link-to-tab rating-reviews">( 6 reviews )</a>
 						</div>
-						<p class="product-short-desc">Sed egestas, ante et vulputate volutpat, eros pede semper
-																est, vitae luctus metus libero eu augue. Morbi purus liberpuro ate vol faucibus
-																adipiscing.</p>
+						<p class="product-short-desc">{{ product.description }}.</p>
 						<div class="product-form product-color">
 							<label>Color:</label>
 							<div class="product-variations">
@@ -125,7 +109,7 @@
 							</div>
 						</div>
 						<div class="product-variation-price">
-							<span>$239.00</span>
+							<span>${{ product.promoPrice }}</span>
 						</div>
 
 						<hr class="product-divider">
