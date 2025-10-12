@@ -47,6 +47,7 @@
 
 		<!-- Main CSS File -->
 		<link rel="stylesheet" type="text/css" href="{{asset('/assets/css/demo9.min.css')}}">
+		{% block css %}{% endblock %}
 		<link rel="stylesheet" type="text/css" href="{{asset('/assets/css/custom.css')}}">
 	</head>
 	<body class="{% block bodyClass %}home{% endblock %}">
@@ -114,6 +115,7 @@
 		<script src="{{asset('/assets/vendor/owl-carousel/owl.carousel.min.js')}}"></script>
 		<!-- Main JS File -->
 		<script src="{{asset('/assets/js/main.min.js')}}"></script>
+		<script src="{{asset('/assets/js/cart.js')}}"></script>
 
 	</body>
 </html>

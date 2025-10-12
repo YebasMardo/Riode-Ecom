@@ -179,7 +179,7 @@
 											<label class="product-label label-sale">25% Off</label>
 										</div>
 										<div class="product-action-vertical">
-											<a href="#" class="btn-product-icon btn-wishlist" title="Add to wishlist">
+											<a href="#" class="btn-product-icon btn-wishlist" title="Add to wishlist" id="add_wishlist" data-id="{{ product.id }}">
 												<i class="d-icon-heart"></i>
 											</a>
 										</div>
@@ -209,7 +209,7 @@
 												<input class="quantity form-control" title="quantity-input" type="number" min="1" max="1000000">
 												<button class="quantity-plus d-icon-plus" title="quantity"></button>
 											</div>
-											<a href="#" class="btn-product btn-cart" data-toggle="modal" data-target="#addCartModal" title="Add to cart">
+											<a href="#" class="btn-product btn-cart add-to-cart" data-id="{{ product.id }}" data-toggle="modal" data-target="#addCartModal" title="Add to cart">
 												<i class="d-icon-bag"></i>
 												<span>Add to cart</span>
 											</a>

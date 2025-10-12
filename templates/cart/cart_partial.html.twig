@@ -1,0 +1,24 @@
+{% set total = 0 %}
+{% for item in cart %}
+	<div class="product product-cart">
+		{% for image in item.images|slice(0, 1) %}
+			<figure class="product-media">
+				<a href="demo9-product.html">
+					<img src="{{ vich_uploader_asset(image, 'imageFile') }}" alt="product" width="80" height="88"/>
+				</a>
+				<button class="btn btn-link btn-close">
+					<i class="fas fa-times"></i>
+					<span class="sr-only">Close</span>
+				</button>
+			</figure>
+		{% endfor %}
+		<div class="product-detail">
+			<a href="demo9-product.html" class="product-name">{{ item.title}}</a>
+			<div class="price-box">
+				<span class="product-quantity">{{ item.quantity }}</span>
+				<span class="product-price">${{ item.price }}</span>
+			</div>
+		</div>
+	</div>
+	{% set total = total + (item.price * item.quantity) %}
+{% endfor %}

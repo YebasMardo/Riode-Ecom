@@ -6,6 +6,8 @@ use App\Entity\Product;
 use App\Repository\CategoryRepository;
 use App\Repository\ProductImageRepository;
 use App\Repository\ProductRepository;
+use App\Service\CartService;
+use App\Service\WishListService;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
@@ -13,13 +15,22 @@ use Symfony\Component\Routing\Attribute\Route;
 final class HomeController extends AbstractController
 {
     #[Route('/', name: 'home.index')]
-    public function index(CategoryRepository $categoryRepository, ProductRepository $productRepository, ProductImageRepository $productImageRepository): Response
+    public function index(CategoryRepository $categoryRepository, ProductRepository $productRepository, CartService $cartService, WishListService $wishListService): Response
     {
         $categories = $categoryRepository->findAllWithCount();
         $products = $productRepository->findAll();
+        $cart = $cartService->getCartProducts();
+        $wishList = $wishListService->getWishListProducts();
+        $total = 0;
+        foreach ($cart as $item) {
+            $total += $item['price'] * $item['quantity'];
+        }
         return $this->render('home/index.html.twig', [
             'categories' => $categories,
-            'products' => $products
+            'products' => $products,
+            'cart' => $cart,
+            'wishList' => $wishList,
+            'total' => $total
         ]);
     }
 
