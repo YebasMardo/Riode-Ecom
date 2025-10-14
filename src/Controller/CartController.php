@@ -47,26 +47,40 @@ class CartController extends AbstractController
     #[Route('/cart', 'cart.show')]
     public function show(CartService $cartService, CategoryRepository $categoryRepository)
     {
-        $categories = $categoryRepository->findAll();
-        $cart = $cartService->getCartProducts();
-        $total = 0;
-        foreach ($cart as $item) {
-            $total += $item['price'] * $item['quantity'];
-        }
         return $this->render('cart/show.html.twig', [
-            'cart' => $cart,
-            'categories' => $categories,
-            'total' => $total
+            'cart' => $cartService->getCartProducts(),
+            'categories' => $categoryRepository->findAll()
         ]);
     }
 
     #[Route('/cart/partial', 'cart.partial')]
-    public function CartPartial(CartService $cartService)
+    public function cartPartial(CartService $cartService)
     {
         $cart = $cartService->getCartProducts();
 
         return $this->render('cart/cart_partial.html.twig', [
             'cart' => $cart
+        ]);
+    }
+
+    #[Route('/cart/show/partial', 'cart.show.partial')]
+    public function cartShowPartial(CartService $cartService)
+    {
+        $cart = $cartService->getCartProducts();
+
+        return $this->render('cart/cart_show_partial.html.twig', [
+            'cart' => $cart,
+            'totalPrice' => $cartService->getTotal()
+        ]);
+    }
+
+    #[Route('/cart/checkout', 'cart.checkout')]
+    public function checkout(CartService $cartService, CategoryRepository $categoryRepository)
+    {
+        return $this->render('cart/checkout.html.twig', [
+            'categories' => $categoryRepository->findAll(),
+            'cart' => $cartService->getCartProducts(),
+            'totalPrice' => $cartService->getTotal()
         ]);
     }
 }

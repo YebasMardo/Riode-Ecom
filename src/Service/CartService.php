@@ -69,7 +69,7 @@ class CartService
         foreach ($cart as $productId => $quantity) {
             $product = $this->productRepository->find($productId);
             if ($product) {
-                $total += $product->getPrice() * $quantity;
+                $total += $product->getPromoPrice() * $quantity;
             }
         }
         return $total;
