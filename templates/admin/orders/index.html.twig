@@ -1,0 +1,81 @@
+{% extends "partials/admin/base_admin.html.twig" %}
+
+{% block body %}
+	{% include "partials/admin/sidebar.html.twig" %}
+
+	<div id="layoutSidenav_content">
+		<main>
+			<div class="container-fluid px-4">
+				<h1 class="mt-4">Produits</h1>
+				<ol class="breadcrumb mb-4">
+					<li class="breadcrumb-item active">Listing</li>
+				</ol>
+				<div class="d-flex align-items-center justify-content-start my-3">
+					<a href="{{ path('admin.product.create') }}" class="btn btn-primary d-flex align-items-center">
+						<i class="fas fa-plus me-2"></i>
+						Ajouter un nouveau produit
+					</a>
+				</div>
+
+				<div class="card mb-4">
+					<div class="card-header">
+						<i class="fas fa-table me-1"></i>
+						Catégories
+					</div>
+					<div class="card-body">
+						<table id="datatablesSimple">
+							<thead>
+								<tr>
+									<th>ID</th>
+									<th>Prénom</th>
+									<th>Nom</th>
+									<th>Email</th>
+									<th>Téléphone</th>
+									<th>Pays</th>
+									<th>Ville</th>
+									<th>Produits</th>
+									<th>Total</th>
+									<th>Date</th>
+								</tr>
+							</thead>
+							<tfoot>
+								<tr>
+									<th>ID</th>
+									<th>Prénom</th>
+									<th>Nom</th>
+									<th>Email</th>
+									<th>Téléphone</th>
+									<th>Pays</th>
+									<th>Ville</th>
+									<th>Produits</th>
+									<th>Total</th>
+									<th>Date</th>
+								</tr>
+							</tfoot>
+							<tbody>
+								{% for order in orders %}
+									<tr>
+										<td>{{order.id}}</td>
+										<td>{{order.firstname}}</td>
+										<td>{{order.lastname}}</td>
+										<td>{{order.email}}</td>
+										<td>{{order.phone}}</td>
+										<td>{{order.country}}</td>
+										<td>{{order.city}}</td>
+										<td>
+                                        {% for product in order.products %}
+                                            {{product.title}} X {{product.quantity}}<br>
+                                        {% endfor %}
+                                        </td>
+										<td>${{order.total}}</td>
+										<td>{{order.createdAt|date('d/m/Y H:i')}}</td>
+									</tr>
+								{% endfor %}
+							</tbody>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+		</div>
+	</div>
+</main>{% endblock %}

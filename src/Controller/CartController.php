@@ -74,13 +74,4 @@ class CartController extends AbstractController
         ]);
     }
 
-    #[Route('/cart/checkout', 'cart.checkout')]
-    public function checkout(CartService $cartService, CategoryRepository $categoryRepository)
-    {
-        return $this->render('cart/checkout.html.twig', [
-            'categories' => $categoryRepository->findAll(),
-            'cart' => $cartService->getCartProducts(),
-            'totalPrice' => $cartService->getTotal()
-        ]);
-    }
 }
