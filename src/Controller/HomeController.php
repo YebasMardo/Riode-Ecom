@@ -17,20 +17,15 @@ final class HomeController extends AbstractController
     #[Route('/', name: 'home.index')]
     public function index(CategoryRepository $categoryRepository, ProductRepository $productRepository, CartService $cartService, WishListService $wishListService): Response
     {
-        $categories = $categoryRepository->findAllWithCount();
+        $categories = $categoryRepository->findAll();
         $products = $productRepository->findAll();
         $cart = $cartService->getCartProducts();
         $wishList = $wishListService->getWishListProducts();
-        $total = 0;
-        foreach ($cart as $item) {
-            $total += $item['price'] * $item['quantity'];
-        }
         return $this->render('home/index.html.twig', [
             'categories' => $categories,
             'products' => $products,
             'cart' => $cart,
             'wishList' => $wishList,
-            'total' => $total
         ]);
     }
 

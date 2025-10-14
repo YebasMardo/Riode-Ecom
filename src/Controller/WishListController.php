@@ -23,10 +23,11 @@ class WishListController extends AbstractController
         ]);
     }
 
-    #[Route('/wishlist/remove/{id}', 'wishlist.remove', methods: ['POST'])]
+    #[Route('/wishlist/remove/{id}', 'wishlist.remove', methods: ['DELETE'])]
     public function remove(int $id, WishListService $wishListService)
     {
         $wishListService->remove($id);
+        return $this->json(['success' => true]);
     }
 
     #[Route('/getwhishlist', methods: ['GET'])]

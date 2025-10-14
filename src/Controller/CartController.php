@@ -5,21 +5,32 @@ namespace App\Controller;
 use App\Repository\CategoryRepository;
 use App\Service\CartService;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
 
 class CartController extends AbstractController
 {
     #[Route('/cart/add/{id}', 'cart.add', methods: ['POST'])]
-    public function add(int $id, CartService $cartService)
+    public function add(int $id, Request $request, CartService $cartService)
     {
-        $cartService->add($id);
+        $data = json_decode($request->getContent(), true);
+        $quantity = $data['quantity'] ?? 1;
+        $cartService->add($id, $quantity);
         $cart = $cartService->getCart();
         $totalQuantity = array_sum($cart);
         return $this->json([
             'message' => 'Produit ajouté au panier',
             'totalQuantity' => $totalQuantity,
-            'cart' => $cart
+            'cart' => $cart,
+            'totalPrice' => $cartService->getTotal()
         ]);
+    }
+
+    #[Route('/cart/remove/{id}', 'cart.remove', methods: ['DELETE'])]
+    public function remove(int $id, CartService $cartService)
+    {
+        $cartService->remove($id);
+        return $this->json(['success' => true]);
     }
 
     #[Route('/get', methods: ['GET'])]
@@ -27,9 +38,9 @@ class CartController extends AbstractController
     {
         $cart = $cartService->getCart();
         $totalQuantity = array_sum($cart);
-
         return $this->json([
-            'totalQuantity' => $totalQuantity
+            'totalQuantity' => $totalQuantity,
+            'totalPrice' => $cartService->getTotal()
         ]);
     }
 
@@ -38,10 +49,14 @@ class CartController extends AbstractController
     {
         $categories = $categoryRepository->findAll();
         $cart = $cartService->getCartProducts();
-        dd($cart);
+        $total = 0;
+        foreach ($cart as $item) {
+            $total += $item['price'] * $item['quantity'];
+        }
         return $this->render('cart/show.html.twig', [
             'cart' => $cart,
-            'categories' => $categories
+            'categories' => $categories,
+            'total' => $total
         ]);
     }
 

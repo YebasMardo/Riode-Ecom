@@ -109,13 +109,12 @@
 								<span class="sr-only">wishlist</span>
 							</a>
 						</div>
-						<div class="products scrollable" id="my-wishlist">
-
-							<!-- End of wishlist Product -->
+						<div
+							class="products scrollable" id="my-wishlist"><!-- End of wishlist Product -->
 						</div>
 						<a href="wishlist.html" class="btn btn-dark wishlist-btn mt-4">
 							<span>Go To
-								                                        Wishlist</span>
+																								                                        Wishlist</span>
 						</a>
 						<!-- End of Products  -->
 					</div>
@@ -126,7 +125,11 @@
 					<a href="#" class="cart-toggle label-block link">
 						<div class="cart-label d-lg-show">
 							<span class="cart-name">Shopping Cart:</span>
-							<span class="cart-price">$0.00</span>
+							{% if total is defined %}
+								<span class="cart-price">${{ total }}</span>
+							{% else %}
+								<span class="cart-price">$0</span>
+							{% endif %}
 						</div>
 						<i class="d-icon-bag">
 							<span class="cart-count">0</span>
@@ -141,14 +144,11 @@
 								<span class="sr-only">Cart</span>
 							</a>
 						</div>
-						<div class="products scrollable" id='my-cart'>
-						
-						
-						</div>
+						<div class="products scrollable" id='my-cart'></div>
 						<!-- End of Products  -->
 						<div class="cart-total">
 							<label>Subtotal:</label>
-							<span class="price">${{ total }}</span>
+								<span class="cart-price" id="cart-price">$0</span>
 						</div>
 						<!-- End of Cart Total -->
 						<div class="cart-action">
@@ -200,7 +200,7 @@
 												<h3 class="banner-title font-weight-bold">
 													<span class="text-uppercase">Up to</span>70% Off</h3>
 												<a href="{{ path('home.shop') }}" class="btn btn-link btn-underline">shop
-													                                                            now<i class="d-icon-arrow-right"></i>
+																																							                                                            now<i class="d-icon-arrow-right"></i>
 												</a>
 											</div>
 										</div>

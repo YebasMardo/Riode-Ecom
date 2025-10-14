@@ -190,7 +190,7 @@
 									</figure>
 									<div class="product-details">
 										<h3 class="product-name">
-											<a href="demo9-product.html">{{ product.title }}</a>
+											<a href="{{ path('home.show', {id: product.id})}}">{{ product.title }}</a>
 										</h3>
 										<div class="product-price">
 											<ins class="new-price">${{ product.promoPrice }}</ins>
@@ -205,9 +205,9 @@
 										</div>
 										<div class="product-action">
 											<div class="product-quantity">
-												<button class="quantity-minus d-icon-minus" title="quantity"></button>
-												<input class="quantity form-control" title="quantity-input" type="number" min="1" max="1000000">
-												<button class="quantity-plus d-icon-plus" title="quantity"></button>
+												<button class="quantity-minus d-icon-minus" id="decrease" title="quantity"></button>
+												<input class="quantity form-control" id="quantity-input" title="quantity-input" type="number" min="1" max="1000000">
+												<button class="quantity-plus d-icon-plus" id="increase" title="quantity"></button>
 											</div>
 											<a href="#" class="btn-product btn-cart add-to-cart" data-id="{{ product.id }}" data-toggle="modal" data-target="#addCartModal" title="Add to cart">
 												<i class="d-icon-bag"></i>
